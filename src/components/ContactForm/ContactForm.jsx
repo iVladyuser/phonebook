@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
 import { FormInput, Form, FormButton, FormLabel } from './ContactForm.styled';
-// import { addContact } from 'redux/contacts/phoneBookSlice';
-// import { selectContacts } from 'redux/contacts/contactsSelectors';
 import { contactsSelectors, contactsSlices } from 'redux/contacts';
 
 const ContactForm = () => {
