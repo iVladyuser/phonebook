@@ -1,18 +1,14 @@
-import { Outlet } from 'react-router-dom';
-import { Suspense } from 'react';
 import { MyAppBar } from '../MyAppBar/MyAppBar';
 
-export const Layout = () => {
+export const Layout = ({ children }) => {
   return (
-    <>
+    <div>
       <header>
         <MyAppBar />
       </header>
       <main>
-        <Suspense fallback={<div>Loading...</div>}>
-          <Outlet />
-        </Suspense>
+        <main>{children}</main>
       </main>
-    </>
+    </div>
   );
 };

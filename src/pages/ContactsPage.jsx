@@ -18,7 +18,7 @@ const ContactsPage = () => {
         padding: '30px',
       }}
     >
-      <h1 style={{ color: '#3645ab' }}>Phonebook</h1>
+      <h1 style={{ color: '#3645ab', marginTop: '50px' }}>Phonebook</h1>
       <ContactForm />
       <h2>Contacts</h2>
       {phoneBook.length === 0 && !error && !isLoading ? (
