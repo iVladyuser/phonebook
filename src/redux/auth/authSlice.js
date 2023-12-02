@@ -1,10 +1,5 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
-import {
-  logOutThunk,
-  loginThunk,
-  refreshThunk,
-  registerThunk,
-} from 'services/fetchAuth';
+import { authThunk } from 'services';
 
 const initialState = {
   isLoading: false,
@@ -20,32 +15,32 @@ const authSlice = createSlice({
   reducers: {},
   extraReducers: builder =>
     builder
-      .addCase(loginThunk.fulfilled, (state, { payload }) => {
+      .addCase(authThunk.loginThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.authenticated = true;
         state.token = payload.token;
         state.userData = payload.user;
       })
-      .addCase(registerThunk.fulfilled, (state, { payload }) => {
+      .addCase(authThunk.registerThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.authenticated = true;
         state.token = payload.token;
         state.userData = payload.user;
       })
-      .addCase(logOutThunk.fulfilled, () => {
+      .addCase(authThunk.logOutThunk.fulfilled, () => {
         return initialState;
       })
-      .addCase(refreshThunk.fulfilled, (state, { payload }) => {
+      .addCase(authThunk.refreshThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.authenticated = true;
         state.userData = payload;
       })
       .addMatcher(
         isAnyOf(
-          loginThunk.pending,
-          registerThunk.pending,
-          refreshThunk.pending,
-          logOutThunk.pending
+          authThunk.loginThunk.pending,
+          authThunk.registerThunk.pending,
+          authThunk.refreshThunk.pending,
+          authThunk.logOutThunk.pending
         ),
         state => {
           state.isLoading = true;
@@ -54,10 +49,10 @@ const authSlice = createSlice({
       )
       .addMatcher(
         isAnyOf(
-          loginThunk.rejected,
-          registerThunk.rejected,
-          refreshThunk.rejected,
-          logOutThunk.rejected
+          authThunk.loginThunk.rejected,
+          authThunk.registerThunk.rejected,
+          authThunk.refreshThunk.rejected,
+          authThunk.logOutThunk.rejected
         ),
         (state, { payload }) => {
           state.isLoading = false;

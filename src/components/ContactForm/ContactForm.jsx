@@ -1,51 +1,35 @@
-import React, { useState } from 'react';
-import { nanoid } from 'nanoid';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FormInput, Form, FormButton, FormLabel } from './ContactForm.styled';
-import { contactsSelectors, contactsSlices } from 'redux/contacts';
+import { contactsSelectors } from 'redux/contacts';
+import { contactsThunk } from 'services';
 
 const ContactForm = () => {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
-
   const dispatch = useDispatch();
   const contacts = useSelector(contactsSelectors.selectContacts);
 
   const onSubmitAddContact = e => {
     e.preventDefault();
-    const data = {
+    const name = e.currentTarget.elements.contactName.value;
+    const number = e.currentTarget.elements.contactNumber.value;
+
+    const formData = {
       name,
-      number: Number.parseFloat(number) || alert(`Number is not correct`),
+      number,
     };
-    const newContact = { ...data, id: nanoid() };
 
     const isExist = contacts.some(
-      ({ name }) => name.toLowerCase() === newContact.name.toLowerCase()
+      ({ name }) => name.toLowerCase() === formData.name.toLowerCase()
     );
 
     if (isExist) {
-      alert(`Oops, contact '${newContact.name}' is already in contacts!`);
+      alert(`Oops, contact '${formData.name}' is already in contacts!`);
       return;
     }
 
-    dispatch(contactsSlices.addContact(newContact));
-    setName('');
-    setNumber('');
-  };
-
-  const handleInputChange = e => {
-    const { name, value } = e.currentTarget;
-    switch (name) {
-      case 'name':
-        setName(value);
-        break;
-      case 'number':
-        setNumber(value);
-        break;
-
-      default:
-        break;
-    }
+    dispatch(contactsThunk.addContact(formData))
+      .unwrap()
+      .then(() => e.target.reset);
   };
 
   return (
@@ -53,9 +37,8 @@ const ContactForm = () => {
       <FormLabel htmlFor="name">Name</FormLabel>
       <FormInput
         type="text"
-        name="name"
-        onChange={handleInputChange}
-        value={name}
+        name="contactName"
+        placeholder="Jacob Mercer"
         pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
         required
       />
@@ -63,9 +46,9 @@ const ContactForm = () => {
       <FormLabel htmlFor="number">Number</FormLabel>
       <FormInput
         type="tel"
-        name="number"
-        value={number}
-        onChange={handleInputChange}
+        name="contactNumber"
+        placeholder="761-23-96"
+        minLength={3}
         pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
         required
       />
