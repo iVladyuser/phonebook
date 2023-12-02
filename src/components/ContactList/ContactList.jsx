@@ -7,38 +7,45 @@ import {
   Info,
 } from './ContactList.styled';
 import { useDispatch, useSelector } from 'react-redux';
-// import {
-//   deleteContact,
-//   getContacts,
-// } from '../../redux/contacts/phoneBookSlice';
-// import { selectFilteredContacts } from 'redux/contacts/contactsSelectors';
-import { contactsSelectors, contactsSlices } from 'redux/contacts';
+import { contactsSelectors } from 'redux/contacts';
+import { contactsThunk } from 'services';
+import { Loader } from 'components/Loader/Loader';
 
 const ContactList = () => {
-  const visibleContacts = useSelector(contactsSelectors.selectFilteredContacts);
   const dispatch = useDispatch();
+  const contacts = useSelector(contactsSelectors.selectContacts);
+  const isLoading = useSelector(contactsSelectors.selectContactsIsLoading);
 
   useEffect(() => {
-    dispatch(contactsSlices.getContacts());
+    dispatch(contactsThunk.getContacts());
   }, [dispatch]);
 
   const handleDeleteContact = contactId => {
-    dispatch(contactsSlices.deleteContact(contactId));
+    dispatch(contactsThunk.deleteContact(contactId));
   };
+
+  const showContacts = Array.isArray(contacts) && contacts.length > 0;
 
   return (
     <List>
-      {visibleContacts.map(({ name, phone, id }) => (
-        <ContactItem key={id}>
-          <CardWrapper>
-            <Info>{name}</Info>
-            <Info>{phone}</Info>
-            <ButtonDelete onClick={() => handleDeleteContact(id)}>
-              Delete
-            </ButtonDelete>
-          </CardWrapper>
-        </ContactItem>
-      ))}
+      {isLoading && <Loader />}
+      {showContacts &&
+        contacts.map(({ id, name, number }) => {
+          return (
+            <ContactItem key={id}>
+              <CardWrapper>
+                <Info>{name}</Info>
+                <Info>{number}</Info>
+                <ButtonDelete
+                  disabled={isLoading}
+                  onClick={() => handleDeleteContact(id)}
+                >
+                  Delete
+                </ButtonDelete>
+              </CardWrapper>
+            </ContactItem>
+          );
+        })}
     </List>
   );
 };

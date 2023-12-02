@@ -7,7 +7,9 @@ import { contactsSelectors } from 'redux/contacts';
 const ContactsPage = () => {
   const isLoading = useSelector(contactsSelectors.selectContactsIsLoading);
   const error = useSelector(contactsSelectors.selectContactsError);
-  const phoneBook = useSelector(contactsSelectors.selectContacts);
+  const contacts = useSelector(contactsSelectors.selectContacts);
+
+  const isContacts = contacts.length === 0 && !error && !isLoading;
   return (
     <div
       style={{
@@ -21,11 +23,7 @@ const ContactsPage = () => {
       <h1 style={{ color: '#3645ab', marginTop: '50px' }}>Phonebook</h1>
       <ContactForm />
       <h2>Contacts</h2>
-      {phoneBook.length === 0 && !error && !isLoading ? (
-        "You don't have any contacts yet"
-      ) : (
-        <Filter />
-      )}
+      {isContacts ? "You don't have any contacts yet" : <Filter />}
       {error ? <Error /> : <ContactList />}
       {isLoading && <Loader />}
     </div>

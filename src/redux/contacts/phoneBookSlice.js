@@ -1,43 +1,5 @@
-import { createAsyncThunk, createSlice, isAnyOf } from '@reduxjs/toolkit';
-import axios from 'axios';
-
-const URL = 'https://655cdecb25b76d9884fe1656.mockapi.io/contacts';
-
-export const getContacts = createAsyncThunk(
-  'contacts/fetchAll',
-  async (_, thunkApi) => {
-    try {
-      const response = await axios.get(URL);
-      return response.data;
-    } catch (err) {
-      return thunkApi.rejectWithValue(err.message);
-    }
-  }
-);
-
-export const deleteContact = createAsyncThunk(
-  'contacts/deleteContact',
-  async (contactId, thunkApi) => {
-    try {
-      const response = await axios.delete(`${URL}/${contactId}`);
-      return response.data;
-    } catch (err) {
-      return thunkApi.rejectWithValue(err.message);
-    }
-  }
-);
-
-export const addContact = createAsyncThunk(
-  'contacts/addContact',
-  async (newContact, thunkApi) => {
-    try {
-      const response = await axios.post(URL, newContact);
-      return response.data;
-    } catch (err) {
-      return thunkApi.rejectWithValue(err.message);
-    }
-  }
-);
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
+import { getContacts, deleteContact, addContact } from 'services/fetchContacts';
 
 const contactInitialState = {
   contacts: [],
@@ -65,7 +27,7 @@ const phoneBookSlice = createSlice({
       .addCase(addContact.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.error = null;
-        state.contacts.push(payload);
+        state.contacts = [state.contacts, payload];
       })
       .addMatcher(
         isAnyOf(getContacts.pending, deleteContact.pending, addContact.pending),
