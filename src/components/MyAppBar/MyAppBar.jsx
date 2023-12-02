@@ -9,29 +9,12 @@ export const MyAppBar = () => {
   const authenticated = useSelector(selectAuthenticated);
   return (
     <AppBar>
-      {authenticated ? (
-        <Toolbar
-          sx={{
-            display: 'flex',
-            fontSize: 18,
-            justifyContent: 'space-between',
-          }}
-        >
-          {' '}
-          <Navigation /> <UserMenu />{' '}
-        </Toolbar>
-      ) : (
-        <Toolbar
-          sx={{
-            display: 'flex',
-            fontSize: 18,
-            justifyContent: 'space-between',
-          }}
-        >
-          {' '}
-          <AuthNav />{' '}
-        </Toolbar>
-      )}
+      <Toolbar
+        sx={{ display: 'flex', fontSize: 18, justifyContent: 'space-between' }}
+      >
+        <Navigation />
+        {authenticated ? <UserMenu /> : <AuthNav />}
+      </Toolbar>
     </AppBar>
   );
 };

@@ -1,13 +1,13 @@
 import avatar from './avatar.png';
 import { Avatar, Button, Toolbar } from '@mui/material';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
-import { selectuserData } from 'redux/auth/authSelectors';
+import { selectUserData } from 'redux/auth/authSelectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { logOutThunk } from 'services/fetchAuth';
 
 export const UserMenu = () => {
   const dispatch = useDispatch();
-  const userData = useSelector(selectuserData);
+  const userData = useSelector(selectUserData);
 
   const onLogOut = () => {
     dispatch(logOutThunk());
