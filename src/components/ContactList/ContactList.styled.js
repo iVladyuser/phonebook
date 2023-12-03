@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 
 export const List = styled.ul`
-display: flex;
-flex-wrap: wrap;
-margin: 20px;
-flex-direction: column;
-gap: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 20px;
+  flex-direction: column;
+  gap: 10px;
 `;
 
 export const ContactItem = styled.li`
-max-width: 400px;
+  max-width: 420px;
   padding: 20px;
   background: white;
   border-radius: 2px;
@@ -17,7 +17,8 @@ max-width: 400px;
   transition: all 0.3s ease-out;
   &:hover {
     transform: scale(1.05);
-  }`;
+  }
+`;
 
 export const CardWrapper = styled.div`
   display: flex;

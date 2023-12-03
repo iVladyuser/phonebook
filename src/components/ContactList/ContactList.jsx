@@ -9,7 +9,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { contactsSelectors } from 'redux/contacts';
 import { contactsThunk } from 'services';
-import { Loader } from 'components/Loader/Loader';
+import { SpinerDel } from 'components/Loader/Loader';
 
 const ContactList = () => {
   const dispatch = useDispatch();
@@ -28,7 +28,6 @@ const ContactList = () => {
 
   return (
     <List>
-      {isLoading && <Loader />}
       {showContacts &&
         contacts.map(({ id, name, number }) => {
           return (
@@ -40,7 +39,7 @@ const ContactList = () => {
                   disabled={isLoading}
                   onClick={() => handleDeleteContact(id)}
                 >
-                  Delete
+                  {isLoading ? <SpinerDel /> : 'Delete'}
                 </ButtonDelete>
               </CardWrapper>
             </ContactItem>

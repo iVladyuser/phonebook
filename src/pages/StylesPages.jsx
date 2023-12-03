@@ -3,12 +3,12 @@ export const paperMainStyle = photo => ({
   backgroundColor: 'grey',
   color: '#fff',
   mb: 4,
-  mt: 10,
+  mt: 8,
   backgroundSize: 'cover',
   backgroundRepeat: 'no-repeat',
   backgroundPosition: 'bottom',
   backgroundImage: `url(${photo})`,
-  minHeight: 450,
+  minHeight: 700,
 });
 
 export const boxMainStyle = {

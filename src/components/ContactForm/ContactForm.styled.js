@@ -1,9 +1,9 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
   max-width: 420px;
-  padding: 10px;
+  padding: 15px;
   border-radius: 2px;
   box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.5);
   margin: 30px 20px;
@@ -17,11 +17,11 @@ export const FormLabel = styled.label`
 `;
 
 export const FormInput = styled.input`
-  height: 20px;
-  font-size: 16px;
-  width: 400px;
-  margin-bottom: 6px;
-  padding: 5px;
+  height: 24px;
+  font-size: 17px;
+  width: 380px;
+  margin-bottom: 10px;
+  padding: 10px;
   border: none;
   border-bottom: 1px solid teal;
   &:focus,
@@ -38,7 +38,7 @@ export const FormInput = styled.input`
 export const FormButton = styled.button`
   width: 100px;
   height: 28px;
-  margin-left: 5px;
+
   margin-top: 5px;
   border-width: inherit;
   border-radius: 5px;
