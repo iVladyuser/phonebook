@@ -13,7 +13,7 @@ import { SpinerDel } from 'components/Loader/Loader';
 
 const ContactList = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(contactsSelectors.selectContacts);
+  const visibleContacts = useSelector(contactsSelectors.selectFilteredContacts);
   const isLoading = useSelector(contactsSelectors.selectContactsIsLoading);
 
   useEffect(() => {
@@ -24,12 +24,13 @@ const ContactList = () => {
     dispatch(contactsThunk.deleteContact(contactId));
   };
 
-  const showContacts = Array.isArray(contacts) && contacts.length > 0;
+  const showContacts =
+    Array.isArray(visibleContacts) && visibleContacts.length > 0;
 
   return (
     <List>
       {showContacts &&
-        contacts.map(({ id, name, number }) => {
+        visibleContacts.map(({ id, name, number }) => {
           return (
             <ContactItem key={id}>
               <CardWrapper>
