@@ -9,7 +9,7 @@ export const List = styled.ul`
 `;
 
 export const ContactItem = styled.li`
-  max-width: 420px;
+  max-width: 400px;
   padding: 20px;
   background: white;
   border-radius: 2px;
