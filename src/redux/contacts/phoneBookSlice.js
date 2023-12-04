@@ -27,7 +27,7 @@ const phoneBookSlice = createSlice({
       .addCase(addContact.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.error = null;
-        state.contacts = [state.contacts, payload];
+        state.contacts = [...state.contacts, payload];
       })
       .addMatcher(
         isAnyOf(getContacts.pending, deleteContact.pending, addContact.pending),
