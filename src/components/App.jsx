@@ -1,3 +1,4 @@
+import { TostBox } from './Toast/Toast';
 import { Suspense, lazy, useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { Layout } from './Layout/Layout';
@@ -59,6 +60,7 @@ const App = () => {
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Suspense>
+      <TostBox />
     </Layout>
   );
 };

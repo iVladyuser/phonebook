@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { contactsSelectors } from 'redux/contacts';
 import { contactsThunk } from 'services';
 import { SpinerDel } from 'components/Loader/Loader';
+import { toast } from 'react-toastify';
 
 const ContactList = () => {
   const dispatch = useDispatch();
@@ -17,11 +18,21 @@ const ContactList = () => {
   const isLoading = useSelector(contactsSelectors.selectContactsIsLoading);
 
   useEffect(() => {
-    dispatch(contactsThunk.getContacts());
+    dispatch(contactsThunk.getContacts())
+      .unwrap()
+      .then()
+      .catch(err => {
+        toast.error(err);
+      });
   }, [dispatch]);
 
   const handleDeleteContact = contactId => {
-    dispatch(contactsThunk.deleteContact(contactId));
+    dispatch(contactsThunk.deleteContact(contactId))
+      .unwrap()
+      .then(toast.info(`contact successfully deleted`))
+      .catch(err => {
+        toast.error(err);
+      });
   };
 
   const showContacts =

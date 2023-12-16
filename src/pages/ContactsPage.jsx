@@ -3,6 +3,7 @@ import { Loader } from 'components/Loader/Loader';
 import { Error } from 'components/Error/Error';
 import { useSelector } from 'react-redux';
 import { contactsSelectors } from 'redux/contacts';
+import { TostBox } from 'components/Toast/Toast';
 
 const ContactsPage = () => {
   const isLoading = useSelector(contactsSelectors.selectContactsIsLoading);
@@ -26,6 +27,7 @@ const ContactsPage = () => {
       {isContacts ? "You don't have any contacts yet" : <Filter />}
       {error ? <Error /> : <ContactList />}
       {isLoading && <Loader />}
+      <TostBox />
     </div>
   );
 };

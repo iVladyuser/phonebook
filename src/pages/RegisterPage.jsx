@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { toast } from 'react-toastify';
 import {
   Avatar,
   Button,
@@ -29,7 +30,12 @@ const RegisterPage = () => {
       email,
       password,
     };
-    dispatch(registerThunk(formData));
+    dispatch(registerThunk(formData))
+      .unwrap()
+      .then(() => toast.info('Welcome'))
+      .catch(err => {
+        toast.error('error, try changing the data!');
+      });
   };
   return (
     <Container component="main" maxWidth="xs">
