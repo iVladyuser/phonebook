@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { avatarStyle, boxFormStyle } from './StylesPages';
 import { useDispatch } from 'react-redux';
 import { loginThunk } from 'services/fetchAuth';
+import { toast } from 'react-toastify';
 
 const LogInPage = () => {
   const dispatch = useDispatch();
@@ -23,7 +24,12 @@ const LogInPage = () => {
       email,
       password,
     };
-    dispatch(loginThunk(formData));
+    dispatch(loginThunk(formData))
+      .unwrap()
+      .then(() => toast.info('Welcome'))
+      .catch(err => {
+        toast.error('error, try changing the data!');
+      });
   };
 
   return (

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FormInput, Form, FormButton, FormLabel } from './ContactForm.styled';
 import { contactsSelectors } from 'redux/contacts';
 import { contactsThunk } from 'services';
+import { toast } from 'react-toastify';
 
 const ContactForm = () => {
   const dispatch = useDispatch();
@@ -29,7 +30,14 @@ const ContactForm = () => {
 
     dispatch(contactsThunk.addContact(formData))
       .unwrap()
-      .then(() => e.target.reset);
+      .then(() =>
+        toast.info(
+          `${formData.name} - has been successfully added to your contacts`
+        )
+      )
+      .catch(err => {
+        toast.error(err);
+      });
   };
 
   return (
