@@ -1,4 +1,5 @@
 import avatar from './avatar.png';
+import { Link } from 'react-router-dom';
 import { Avatar, Button, Toolbar } from '@mui/material';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import { selectUserData } from 'redux/auth/authSelectors';
@@ -16,7 +17,7 @@ export const UserMenu = () => {
   return (
     <Toolbar sx={{ display: 'flex', columnGap: 2, fontSize: 18 }}>
       <Avatar alt={''} src={avatar} sx={{ width: 36, height: 36 }} />
-      Welcome, {userData.name}!
+      Welcome, {userData.name}!<Link to="/profile">Profile</Link>
       <Button
         onClick={onLogOut}
         variant="text"

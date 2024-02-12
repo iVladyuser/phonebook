@@ -41,15 +41,15 @@ const ContactList = () => {
   return (
     <List>
       {showContacts &&
-        visibleContacts.map(({ id, name, number }) => {
+        visibleContacts.map(({ _id, name, number }) => {
           return (
-            <ContactItem key={id}>
+            <ContactItem key={_id}>
               <CardWrapper>
                 <Info>{name}</Info>
                 <Info>{number}</Info>
                 <ButtonDelete
                   disabled={isLoading}
-                  onClick={() => handleDeleteContact(id)}
+                  onClick={() => handleDeleteContact(_id)}
                 >
                   {isLoading ? <SpinerDel /> : 'Delete'}
                 </ButtonDelete>
