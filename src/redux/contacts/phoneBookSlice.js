@@ -21,7 +21,7 @@ const phoneBookSlice = createSlice({
         state.isLoading = false;
         state.error = null;
         state.contacts = state.contacts.filter(
-          contact => contact.id !== payload.id
+          contact => contact._id !== payload
         );
       })
       .addCase(addContact.fulfilled, (state, { payload }) => {

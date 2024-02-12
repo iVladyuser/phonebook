@@ -35,12 +35,16 @@ const authSlice = createSlice({
         state.authenticated = true;
         state.userData = payload;
       })
+      .addCase(authThunk.updateAvatarThunk.fulfilled, (state, { payload }) => {
+        state.userData.avatarURL = payload;
+      })
       .addMatcher(
         isAnyOf(
           authThunk.loginThunk.pending,
           authThunk.registerThunk.pending,
           authThunk.refreshThunk.pending,
-          authThunk.logOutThunk.pending
+          authThunk.logOutThunk.pending,
+          authThunk.updateAvatarThunk.pending
         ),
         state => {
           state.isLoading = true;
@@ -52,7 +56,8 @@ const authSlice = createSlice({
           authThunk.loginThunk.rejected,
           authThunk.registerThunk.rejected,
           authThunk.refreshThunk.rejected,
-          authThunk.logOutThunk.rejected
+          authThunk.logOutThunk.rejected,
+          authThunk.updateAvatarThunk.rejected
         ),
         (state, { payload }) => {
           state.isLoading = false;

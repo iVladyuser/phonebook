@@ -13,6 +13,8 @@ const Home = lazy(() => import('pages/HomePage'));
 const Register = lazy(() => import('pages/RegisterPage'));
 const Login = lazy(() => import('pages/LogInPage'));
 const Contacts = lazy(() => import('pages/ContactsPage'));
+const Profile = lazy(() => import('pages/Profile'));
+const Update = lazy(() => import('pages/Update'));
 
 const appRoutes = [
   { path: ROUTES.HOME_ROUTE, element: <Home /> },
@@ -37,6 +39,22 @@ const appRoutes = [
     element: (
       <PrivateRoute>
         <Contacts />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: ROUTES.PROFILE_ROUTE,
+    element: (
+      <PrivateRoute>
+        <Profile />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: ROUTES.UPDATE_ROUTE,
+    element: (
+      <PrivateRoute>
+        <Update />
       </PrivateRoute>
     ),
   },
